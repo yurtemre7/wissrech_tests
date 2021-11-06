@@ -6,8 +6,6 @@ from main import machine_epsilon, rotation_matrix, matrix_multiplication, compar
 
 class Tests(unittest.TestCase):
 
-   
-
     def test_matrix_multiplication(self):
         a = np.random.randn(2, 2)
         b = np.random.randn(2, 3)
@@ -54,7 +52,6 @@ class Tests(unittest.TestCase):
         B = rotation_matrix(theta)
         self.assertTrue(np.allclose(A, B))
 
-
     def test_inverse_rotation(self):
         theta = -90
         A = np.array([[0, -1], [1, 0]])
@@ -75,14 +72,13 @@ class Tests(unittest.TestCase):
         A = np.array([[0.8660254, 0.5], [-0.5, 0.8660254]])
         B = inverse_rotation(theta)
         self.assertTrue(np.allclose(A, B))
-    
+
     def test_all(self):
         self.test_matrix_multiplication()
         self.test_compare_multiplication()
         self.test_machine_epsilon()
         self.test_rotation_matrix()
         self.test_inverse_rotation()
-        
 
 
 if __name__ == '__main__':
