@@ -16,6 +16,11 @@
 -   ```shell
     python tests.py -v Tests.test_all
     ```
+    
+    Wenn du doch einzeln testen möchtest, dann wie im Aufgabenblatt beschrieben:
+-   ```shell
+    python3 tests.py -v Tests.Funktionsname
+    ```
 #
 ### made by me :D
 
