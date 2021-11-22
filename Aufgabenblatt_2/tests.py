@@ -38,7 +38,27 @@ class Tests(unittest.TestCase):
             self.assertTrue(np.allclose(A_elim, np.triu(A_elim)),
                             "A_elim: " + str(A_elim))
 
-        print("test_gaussian_elimination nice 5/5\n")
+        A = np.array([[1, 1, 0, 0], [0, 0, 1, 1], [0, 1, 0, 1], [1, 0, 1, 1]])
+        x = np.array([1, 0, 0, 1])
+        b = np.dot(A, x)
+        A_elim, b_elim = gaussian_elimination(A, b)
+        sol = np.linalg.solve(A_elim, b_elim)
+        with self.assertRaises(ValueError):
+            gaussian_elimination(A, b, False)
+        self.assertTrue(np.allclose(sol, x), "sol: " +
+                        str(sol) + " x: " + str(x))
+        self.assertTrue(np.allclose(A_elim, np.triu(A_elim)),
+                        "A_elim: " + str(A_elim))
+
+        A = np.array([[0, 3, 5], [3, 0, 1], [6, 7, 2]])
+        b = np.array([23, 14, 26])
+        x = np.array([3.07619048, -0.28571429,  4.77142857])
+        A_elim, b_elim = gaussian_elimination(A, b)
+        sol = np.linalg.solve(A_elim, b_elim)
+        self.assertTrue(np.allclose(sol, x), "sol: " +
+                        str(sol) + " x: " + str(x))
+
+        print("test_gaussian_elimination nice 6/6\n")
 
     def test_back_substitution(self):
         for i in range(5):
@@ -96,8 +116,7 @@ class Tests(unittest.TestCase):
         ''' 
         Compute tomographic image
         Benutzt bei der Aufgabe lieber numpy als eure Implementierung
-        64, 64, 32 braucht im Schnitt 3 Sekunden
-        128, 128, 64 braucht im Schnitt 10 Sekunden
+        Die Funktion braucht lange
         '''
 
         n_shots = 64  # 128  # 64
