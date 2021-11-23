@@ -38,24 +38,18 @@ class Tests(unittest.TestCase):
             self.assertTrue(np.allclose(A_elim, np.triu(A_elim)),
                             "A_elim: " + str(A_elim))
 
-        A = np.array([[1., 1., 0., 0.], [0., 0., 1., 1.], [0., 1., 0., 1.], [1., 0., 1., 1.]])
+        A = np.array([[1., 1., 0., 0.], [0., 0., 1., 1.],
+                     [0., 1., 0., 1.], [1., 0., 1., 0.]])
         x = np.array([1., 0., 0., 1.])
         b = np.dot(A, x)
         A_elim, b_elim = gaussian_elimination(A, b)
-        sol = np.linalg.solve(A_elim, b_elim)
         with self.assertRaises(ValueError):
             gaussian_elimination(A, b, False)
-        self.assertTrue(np.allclose(sol, x), "sol: " +
-                        str(sol) + " x: " + str(x))
-        self.assertTrue(np.allclose(A_elim, np.triu(A_elim)),
-                        "A_elim: " + str(A_elim))
 
         A = np.array([[0., 3., 5.], [3., 0., 1.], [6., 7., 2.]])
         b = np.array([23., 14., 26.])
         x = np.array([3.07619048, -0.28571429,  4.77142857])
         A_elim, b_elim = gaussian_elimination(A, b)
-        print(A_elim)
-        print(b_elim)
         sol = np.linalg.solve(A_elim, b_elim)
         self.assertTrue(np.allclose(sol, x), "sol: " +
                         str(sol) + " x: " + str(x))
@@ -138,8 +132,7 @@ class Tests(unittest.TestCase):
 
         plt.show()
 
-
-print("test_compute_tomograph nice 1/1\n")
+        print("test_compute_tomograph nice 1/1\n")
 
 
 if __name__ == '__main__':
