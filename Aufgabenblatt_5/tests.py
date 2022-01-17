@@ -51,6 +51,28 @@ class Tests(unittest.TestCase):
         print("")
         self.assertTrue(np.allclose(dftSimple, dftSimpleNp))
 
+        dftSimple = dft_matrix(4)
+        # print(dftSimple)
+        dftSimpleNp = (
+            np.array(
+                [
+                    [1, 1, 1, 1],
+                    [1, -1j, -1, 1j],
+                    [1, -1, 1, -1],
+                    [1, 1j, -1, -1j],
+                ],
+                dtype=np.complex128,
+            )
+            / 2
+        )
+
+        print("\nDEINE DFT:")
+        print(dftSimple)
+        print("\nNUMPY DFT:")
+        print(dftSimpleNp)
+        print("")
+        self.assertTrue(np.allclose(dftSimple, dftSimpleNp))
+
         dft1 = dft_matrix(n=16)
         self.assertTrue(dft1.shape[0] == dft1.shape[1] == 16)
         self.assertTrue(np.allclose(dft1, Tests.data["t1_dft1"]))
@@ -109,6 +131,38 @@ class Tests(unittest.TestCase):
     def test_5_fft(self):
         # vom Arbeitsblatt ganz unten das Beispiel
         data = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8], dtype=np.complex128)
+        data1 = ifft(fft(data))
+        dataEnd = fft(data)
+        data2 = np.fft.fft(data) / np.sqrt(data.size)
+        print("\nDEIN ARRAY AM ENDE")
+        print(dataEnd)  # DEINS
+        print("\nDIE NUMPY LÖSUNG:")
+        print(data2)  # LÖSUNG
+        print("")
+        self.assertTrue(np.allclose(data, data1))
+        self.assertTrue(np.allclose(fft(data), np.fft.fft(data) / np.sqrt(data.size)))
+
+        data = np.array(
+            [
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9,
+                1.0,
+                1.1,
+                1.2,
+                1.3,
+                1.4,
+                1.5,
+                1.6,
+            ],
+            dtype=np.complex128,
+        )
         data1 = ifft(fft(data))
         dataEnd = fft(data)
         data2 = np.fft.fft(data) / np.sqrt(data.size)
